@@ -1,6 +1,8 @@
 global using System;
 global using System.Collections.Generic;
 global using System.IO; //Directory
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
 
 namespace ConsoleApp;
 
@@ -41,7 +43,8 @@ public enum MaiEnum
 public enum EventEnum
 {
     TakeNote = 1,
-    Exit = 2
+    ShowNoteList = 2,
+    Exit = 3
 }
 
 public enum StorageEnum

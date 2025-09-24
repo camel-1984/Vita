@@ -1,5 +1,3 @@
-using System.Data;
-
 namespace ConsoleApp.Options;
 
 public abstract class Option

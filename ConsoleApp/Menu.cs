@@ -18,6 +18,8 @@ public class Menu
         MenuStack.Push("Main menu");
 
         Console.WriteLine("Welcome to Vita");
+        
+        EventOption eventOption = new();
 
         while (true)
         {
@@ -39,7 +41,7 @@ public class Menu
 
                     mainSection.DisplaySection();
 
-                    var optionMain = Console.ReadLine();
+                    var optionMain = Console.ReadLine() ?? "";
 
                     mainSection.ParseOption<MaiEnum>(optionMain);
 
@@ -51,7 +53,7 @@ public class Menu
 
                     eventSection.DisplaySection();
 
-                    var optionEvent = Console.ReadLine();
+                    var optionEvent = Console.ReadLine() ?? "";
 
                     eventSection.ParseOption<EventEnum>(optionEvent);
 
@@ -63,55 +65,81 @@ public class Menu
 
                     storageSection.DisplaySection();
 
-                    var optionStorage = Console.ReadLine();
+                    var optionStorage = Console.ReadLine() ?? "";
 
                     storageSection.ParseOption<StorageEnum>(optionStorage);
 
                     break;
 
-                
+
                 case "Timeline":
 
                     TimelineSection timelineSection = new(MenuStack);
 
                     timelineSection.DisplaySection();
 
-                    var optionTimeline = Console.ReadLine();
+                    var optionTimeline = Console.ReadLine() ?? "";
 
                     timelineSection.ParseOption<StorageEnum>(optionTimeline);
 
-                    break;    
+                    break;
 
                 case "TakeNote":
 
-                    Console.WriteLine("Write something down");
+                    Console.WriteLine("Write title");
 
-                    var textTakeNote = Console.ReadLine();
+                    var noteTitle = Console.ReadLine() ?? "";
 
-                    EventOption eventOption = new();
+                    Console.WriteLine("Write content");
 
-                    eventOption.ParseText(textTakeNote);
+                    var noteContent = Console.ReadLine() ?? "";
+
+
+                    eventOption.AddNote(noteTitle, noteContent);
 
                     MenuStack.Pop();
 
-                    break;    
+                    break;
+
+                case "ShowNoteList":
+
+                    if (!eventOption.ShowNoteList())
+                    {
+                        MenuStack.Pop();
+                        break;  
+                    }                    
+
+                    var noteIdx = Console.ReadLine() ?? "";
+
+                    if (int.TryParse(noteIdx, out int noteIdxInt))
+                    {
+                        eventOption.ShowNote(noteIdxInt-1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No such note");
+                    }
+
+                    MenuStack.Pop();
+
+                    break;
 
                 case "Store":
 
                     Console.WriteLine("Write something down");
 
                     MenuStack.Pop();
-                    
-                    break;    
+
+                    break;
 
                 case "Show":
 
                     Console.WriteLine("Look");
 
                     MenuStack.Pop();
-                    
-                    break;        
-                
+
+                    break;
+
             }
         }
     }
