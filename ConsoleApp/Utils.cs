@@ -1,31 +1,32 @@
 global using System;
 global using System.Collections.Generic;
-global using System.IO;
+global using System.IO; //Directory
 
 namespace ConsoleApp;
-public class Result<T>
-{
-    public bool IsSuccess { get; }
-    public string? Error { get; }
-    public T? Value { get; }
 
-    private Result(string error)
-    {
-        Error = error;
-        IsSuccess = false;
-    }
+// public class Result<T>
+// {
+//     public bool IsSuccess { get; }
+//     public string? Error { get; }
+//     public T? Value { get; }
 
-    private Result(T value)
-    {
-        Value = value;
-        IsSuccess = true;
-    }
+//     private Result(string error)
+//     {
+//         Error = error;
+//         IsSuccess = false;
+//     }
 
-    public Result<T> Success(T value) => new(value);
+//     private Result(T value)
+//     {
+//         Value = value;
+//         IsSuccess = true;
+//     }
 
-    public Result<T> Failure(string error) => new(error);
+//     public Result<T> Success(T value) => new(value);
 
-}
+//     public Result<T> Failure(string error) => new(error);
+
+// }
 
 public enum MaiEnum
 {
@@ -43,3 +44,14 @@ public enum EventEnum
     Exit = 2
 }
 
+public enum StorageEnum
+{
+    Store = 1,
+    Exit = 2
+}
+
+public enum TimelineEnum
+{
+    Show = 1,
+    Exit = 2
+}

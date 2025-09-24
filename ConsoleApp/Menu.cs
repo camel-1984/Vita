@@ -1,5 +1,6 @@
 using ConsoleApp.MenuSections;
 using ConsoleApp.Options;
+
 namespace ConsoleApp;
 
 public class Menu
@@ -40,7 +41,7 @@ public class Menu
 
                     var optionMain = Console.ReadLine();
 
-                    mainSection.ParseOption<MaiEnum>(optionMain!);
+                    mainSection.ParseOption<MaiEnum>(optionMain);
 
                     break;
 
@@ -52,25 +53,65 @@ public class Menu
 
                     var optionEvent = Console.ReadLine();
 
-                    eventSection.ParseOption<EventEnum>(optionEvent!);
+                    eventSection.ParseOption<EventEnum>(optionEvent);
 
                     break;
 
+                case "Storage":
 
+                    StorageSection storageSection = new(MenuStack);
+
+                    storageSection.DisplaySection();
+
+                    var optionStorage = Console.ReadLine();
+
+                    storageSection.ParseOption<StorageEnum>(optionStorage);
+
+                    break;
+
+                
+                case "Timeline":
+
+                    TimelineSection timelineSection = new(MenuStack);
+
+                    timelineSection.DisplaySection();
+
+                    var optionTimeline = Console.ReadLine();
+
+                    timelineSection.ParseOption<StorageEnum>(optionTimeline);
+
+                    break;    
 
                 case "TakeNote":
 
                     Console.WriteLine("Write something down");
 
-                    var text = Console.ReadLine();
+                    var textTakeNote = Console.ReadLine();
 
-                    Event eveent = new Event(DateTime.Now);
+                    EventOption eventOption = new();
 
-                    eveent.ParseText(text);
+                    eventOption.ParseText(textTakeNote);
 
                     MenuStack.Pop();
 
-                    break;
+                    break;    
+
+                case "Store":
+
+                    Console.WriteLine("Write something down");
+
+                    MenuStack.Pop();
+                    
+                    break;    
+
+                case "Show":
+
+                    Console.WriteLine("Look");
+
+                    MenuStack.Pop();
+                    
+                    break;        
+                
             }
         }
     }

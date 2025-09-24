@@ -1,15 +1,11 @@
 namespace ConsoleApp.Options;
 
-public class Event : IOption
+public class EventOption : Option
 {
-    public DateTime CreationTime { get; set; }
 
-    public Event(DateTime creationTime)
-    {
-        CreationTime = creationTime;
-    }
+    public EventOption() : base(){}
 
-    public void ParseText(string text)
+    public override void ParseText(string text)
 {
     string currentDir = Directory.GetCurrentDirectory();
 
