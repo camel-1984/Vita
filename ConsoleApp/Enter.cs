@@ -1,10 +1,13 @@
 ﻿namespace ConsoleApp;
 
 public class Enter()
-{
-    public static void Main()
+
+{    public static void Main()
     {
-        ParsingConsole.ParseConsole();
+        Menu menu = new();
+        menu.RunMenu();
+        
+
     }
 }
 
