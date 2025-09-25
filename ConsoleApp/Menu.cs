@@ -1,3 +1,4 @@
+using System.Threading;
 using ConsoleApp.MenuSections;
 using ConsoleApp.Options;
 
@@ -12,14 +13,11 @@ public class Menu
         MenuStack = new();
     }
 
-    public void RunMenu()
+    public void Run()
     {
-
-        MenuStack.Push("Main menu");
-
         Console.WriteLine("Welcome to Vita");
-        
-        EventOption eventOption = new();
+        MenuStack.Push("Main menu");
+        EventOption eventOption = new("Events.json");
 
         while (true)
         {
@@ -28,6 +26,7 @@ public class Menu
                 Console.WriteLine("Goodbye");
                 break;
             }
+
             switch (MenuStack.Peek())
             {
                 case "Exit":
@@ -71,7 +70,6 @@ public class Menu
 
                     break;
 
-
                 case "Timeline":
 
                     TimelineSection timelineSection = new(MenuStack);
@@ -94,7 +92,6 @@ public class Menu
 
                     var noteContent = Console.ReadLine() ?? "";
 
-
                     eventOption.AddNote(noteTitle, noteContent);
 
                     MenuStack.Pop();
@@ -103,17 +100,19 @@ public class Menu
 
                 case "ShowNoteList":
 
-                    if (!eventOption.ShowNoteList())
+                    if (!eventOption.DisplayNodeList())
                     {
                         MenuStack.Pop();
-                        break;  
-                    }                    
+                        break;
+                    }
 
                     var noteIdx = Console.ReadLine() ?? "";
 
-                    if (int.TryParse(noteIdx, out int noteIdxInt))
+                    if (int.TryParse(noteIdx, out int noteIdxInt) &&
+                        eventOption.InRange(noteIdxInt - 1))
                     {
-                        eventOption.ShowNote(noteIdxInt-1);
+
+                        eventOption.DisplayNode(noteIdxInt - 1);
                     }
                     else
                     {
@@ -138,8 +137,7 @@ public class Menu
 
                     MenuStack.Pop();
 
-                    break;
-
+                    break;                
             }
         }
     }

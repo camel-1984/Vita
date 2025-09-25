@@ -1,10 +1,37 @@
 global using System;
 global using System.Collections.Generic;
-global using System.IO; //Directory
+global using System.IO; 
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 
 namespace ConsoleApp;
+
+public enum MaiEnum
+{
+    Event = 1,
+    Storage = 2,
+    Timeline = 3,
+    Exit = 4
+}
+
+public enum EventEnum
+{
+    TakeNote = 1,
+    ShowNoteList = 2,
+    Exit = 3
+}
+
+public enum StorageEnum
+{
+    Store = 1,
+    Exit = 2
+}
+
+public enum TimelineEnum
+{
+    Show = 1,
+    Exit = 2
+}
 
 // public class Result<T>
 // {
@@ -29,32 +56,3 @@ namespace ConsoleApp;
 //     public Result<T> Failure(string error) => new(error);
 
 // }
-
-public enum MaiEnum
-{
-
-    Event = 1,
-    Storage = 2,
-    Timeline = 3,
-    Exit = 4
-
-}
-
-public enum EventEnum
-{
-    TakeNote = 1,
-    ShowNoteList = 2,
-    Exit = 3
-}
-
-public enum StorageEnum
-{
-    Store = 1,
-    Exit = 2
-}
-
-public enum TimelineEnum
-{
-    Show = 1,
-    Exit = 2
-}
