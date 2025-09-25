@@ -16,6 +16,12 @@ public abstract class Option<T>
 
     public abstract void DisplayNode(int idx);
 
+    public void DeleteNode(int idx)
+    {
+        NodeList.RemoveAt(idx);
+          SaveNodes();
+    }
+
     public bool InRange(int idx)
     {
         if (idx < 0 || NodeList.Count - 1 < idx)

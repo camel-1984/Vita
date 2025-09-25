@@ -82,7 +82,7 @@ public class Menu
 
                     break;
 
-                case "TakeNote":
+                case "TakeNode":
 
                     Console.WriteLine("Write title");
 
@@ -98,7 +98,7 @@ public class Menu
 
                     break;
 
-                case "ShowNoteList":
+                case "ShowNodeList":
 
                     if (!eventOption.DisplayNodeList())
                     {
@@ -106,13 +106,13 @@ public class Menu
                         break;
                     }
 
-                    var noteIdx = Console.ReadLine() ?? "";
+                    var noteToShow = Console.ReadLine() ?? "";
 
-                    if (int.TryParse(noteIdx, out int noteIdxInt) &&
-                        eventOption.InRange(noteIdxInt - 1))
+                    if (int.TryParse(noteToShow, out int noteToShowInt) &&
+                        eventOption.InRange(noteToShowInt - 1))
                     {
 
-                        eventOption.DisplayNode(noteIdxInt - 1);
+                        eventOption.DisplayNode(noteToShowInt - 1);
                     }
                     else
                     {
@@ -122,6 +122,31 @@ public class Menu
                     MenuStack.Pop();
 
                     break;
+
+                case "DeleteNode":
+
+                    if (!eventOption.DisplayNodeList())
+                    {
+                        MenuStack.Pop();
+                        break;
+                    }
+
+                    var noteToDelete = Console.ReadLine() ?? "";
+
+                    if (int.TryParse(noteToDelete, out int notToDeleteInt) &&
+                        eventOption.InRange(notToDeleteInt - 1))
+                    {
+
+                        eventOption.DeleteNode(notToDeleteInt - 1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No such note");
+                    }
+
+                    MenuStack.Pop();
+
+                    break;    
 
                 case "Store":
 

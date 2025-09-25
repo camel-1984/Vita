@@ -10,7 +10,8 @@ public class EventSection : MenuSection
         Console.WriteLine("Select");
         Console.WriteLine("1. TakeNote");
         Console.WriteLine("2. ShowNoteList");
-        Console.WriteLine("3. Exit");
+        Console.WriteLine("3. DeleteNote");
+        Console.WriteLine("4. Exit");
     }
     
 

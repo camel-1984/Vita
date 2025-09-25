@@ -16,9 +16,10 @@ public enum MaiEnum
 
 public enum EventEnum
 {
-    TakeNote = 1,
-    ShowNoteList = 2,
-    Exit = 3
+    TakeNode = 1,
+    ShowNodeList = 2,
+    DeleteNode = 3,
+    Exit = 4
 }
 
 public enum StorageEnum
