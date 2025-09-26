@@ -20,6 +20,8 @@ public abstract class Option<T>
     {
         NodeList.RemoveAt(idx);
         SaveNodes();
+        Console.WriteLine();
+        Console.WriteLine($"Object successfully deleted");
     }
 
     public bool InRange(int idx)

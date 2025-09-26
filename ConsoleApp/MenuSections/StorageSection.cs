@@ -6,9 +6,12 @@ public class StorageSection : MenuSection
 
     public override void DisplaySection()
     {
-        Console.WriteLine("1. Store");
-        Console.WriteLine("2. ShowStorageList");
-        Console.WriteLine("3. DeleteStorageNode");
-        Console.WriteLine("4. Exit");
+        Console.WriteLine("=== STORAGE ===");
+        Console.WriteLine("1. Store Info");
+        Console.WriteLine("2. Display all Info");
+        Console.WriteLine("3. Delete Info");
+        Console.WriteLine("4. Exit to Main Menu");
+        Console.WriteLine(new string('-', 30));
+        Console.Write("Select option [1-4]: ");
     }
 }

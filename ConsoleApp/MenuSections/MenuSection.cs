@@ -8,6 +8,7 @@ public abstract class MenuSection
     {
         MenuStack = menuStack;
     }
+
     public void ParseOption<T>(string optionKey) where T : Enum
     {
         if (int.TryParse(optionKey, out int optionOut) && Enum.IsDefined(typeof(T), optionOut))
@@ -17,8 +18,11 @@ public abstract class MenuSection
         }
         else
         {
-            Console.WriteLine("No such option");
+            Console.WriteLine("Error: Invalid option selected");
+            Console.WriteLine("Please enter a valid number from the menu");
+            Console.WriteLine(new string('-', 30));
         }
     }
+
     public abstract void DisplaySection();
 }

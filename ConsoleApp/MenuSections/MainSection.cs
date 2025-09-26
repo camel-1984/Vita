@@ -6,8 +6,11 @@ public class MainSection : MenuSection
 
     public override void DisplaySection()
     {
-        Console.WriteLine("1. Event");
+        Console.WriteLine("=== MAIN MENU ===");
+        Console.WriteLine("1. Notes");
         Console.WriteLine("2. Storage");
         Console.WriteLine("3. Exit");
+        Console.WriteLine(new string('-', 30));
+        Console.Write("Select option [1-3]: ");
     }
 }
