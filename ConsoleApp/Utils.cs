@@ -10,28 +10,22 @@ public enum MaiEnum
 {
     Event = 1,
     Storage = 2,
-    Timeline = 3,
-    Exit = 4
+    Exit = 3
 }
-
 public enum EventEnum
 {
     TakeNode = 1,
     ShowNodeList = 2,
-    DeleteNode = 3,
+    DeleteEventNode = 3,
     Exit = 4
 }
 
 public enum StorageEnum
 {
     Store = 1,
-    Exit = 2
-}
-
-public enum TimelineEnum
-{
-    Show = 1,
-    Exit = 2
+    ShowStorageList = 2,
+    DeleteStorageNode = 3,
+    Exit = 4
 }
 
 // public class Result<T>

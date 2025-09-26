@@ -22,13 +22,13 @@ public class EventNode
     {
         Console.WriteLine(Title);
         Console.WriteLine(Content);
-        Console.WriteLine(CreationTime);
     }
 }
 
 public class EventOption : Option<EventNode>
 {
-    public EventOption(string path) : base(path) { }
+    public EventOption(string path) : base(path) {}
+    
     public void AddNote(string title, string content)
     {
         NodeList.Add(new EventNode(title, content));
@@ -39,7 +39,6 @@ public class EventOption : Option<EventNode>
     {
         if (!(NodeList.Count == 0))
         {
-            Console.WriteLine("Select");
             for (int i = 0; i < NodeList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {NodeList[i].CreationTime} {NodeList[i].Title}");
@@ -71,7 +70,5 @@ public class EventOption : Option<EventNode>
 //     string filePath = Path.Combine(currentDir, fileName);
 
 //     File.WriteAllText(filePath, text);
-
 // }
-
 // }

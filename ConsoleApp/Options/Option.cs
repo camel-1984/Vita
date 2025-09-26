@@ -19,7 +19,7 @@ public abstract class Option<T>
     public void DeleteNode(int idx)
     {
         NodeList.RemoveAt(idx);
-          SaveNodes();
+        SaveNodes();
     }
 
     public bool InRange(int idx)

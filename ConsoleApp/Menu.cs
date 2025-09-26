@@ -17,7 +17,9 @@ public class Menu
     {
         Console.WriteLine("Welcome to Vita");
         MenuStack.Push("Main menu");
-        EventOption eventOption = new("Events.json");
+
+        EventOption eventOption = new("Event.json");
+        StorageOption storageOption = new("Storage.json");
 
         while (true)
         {
@@ -55,30 +57,6 @@ public class Menu
                     var optionEvent = Console.ReadLine() ?? "";
 
                     eventSection.ParseOption<EventEnum>(optionEvent);
-
-                    break;
-
-                case "Storage":
-
-                    StorageSection storageSection = new(MenuStack);
-
-                    storageSection.DisplaySection();
-
-                    var optionStorage = Console.ReadLine() ?? "";
-
-                    storageSection.ParseOption<StorageEnum>(optionStorage);
-
-                    break;
-
-                case "Timeline":
-
-                    TimelineSection timelineSection = new(MenuStack);
-
-                    timelineSection.DisplaySection();
-
-                    var optionTimeline = Console.ReadLine() ?? "";
-
-                    timelineSection.ParseOption<StorageEnum>(optionTimeline);
 
                     break;
 
@@ -123,7 +101,7 @@ public class Menu
 
                     break;
 
-                case "DeleteNode":
+                case "DeleteEventNode":
 
                     if (!eventOption.DisplayNodeList())
                     {
@@ -146,23 +124,77 @@ public class Menu
 
                     MenuStack.Pop();
 
-                    break;    
+                    break;
+
+                case "Storage":
+
+                    StorageSection storageSection = new(MenuStack);
+
+                    storageSection.DisplaySection();
+
+                    var optionStorage = Console.ReadLine() ?? "";
+
+                    storageSection.ParseOption<StorageEnum>(optionStorage);
+
+                    break;
 
                 case "Store":
 
-                    Console.WriteLine("Write something down");
+                    storageOption.AddStorageNode();
 
                     MenuStack.Pop();
 
                     break;
 
-                case "Show":
+                case "ShowStorageList":
 
-                    Console.WriteLine("Look");
+                    if (!storageOption.DisplayNodeList())
+                    {
+                        MenuStack.Pop();
+                        break;
+                    }
+
+                    var nodeToShow = Console.ReadLine() ?? "";
+
+                    if (int.TryParse(nodeToShow, out int nodeToShowInt) &&
+                        storageOption.InRange(nodeToShowInt - 1))
+                    {
+
+                        storageOption.DisplayNode(nodeToShowInt - 1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No such note");
+                    }
 
                     MenuStack.Pop();
 
-                    break;                
+                    break;
+
+                case "DeleteStorageNode":
+
+                    if (!storageOption.DisplayNodeList())
+                    {
+                        MenuStack.Pop();
+                        break;
+                    }
+
+                    var nodeToDelete = Console.ReadLine() ?? "";
+
+                    if (int.TryParse(nodeToDelete, out int nodeToDeleteInt) &&
+                        storageOption.InRange(nodeToDeleteInt - 1))
+                    {
+
+                        storageOption.DeleteNode(nodeToDeleteInt - 1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No such note");
+                    }
+
+                    MenuStack.Pop();
+
+                    break; 
             }
         }
     }

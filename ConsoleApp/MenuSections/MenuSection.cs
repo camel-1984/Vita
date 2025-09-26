@@ -17,9 +17,8 @@ public abstract class MenuSection
         }
         else
         {
-            Console.WriteLine("no such option");
+            Console.WriteLine("No such option");
         }
     }
     public abstract void DisplaySection();
-
 }
