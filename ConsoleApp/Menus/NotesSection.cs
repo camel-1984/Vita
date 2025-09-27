@@ -1,8 +1,8 @@
-namespace ConsoleApp.MenuSections;
+namespace ConsoleApp.Menus;
 
-public class EventSection : MenuSection
+public class NotesSection : MenuSection
 {
-    public EventSection(Stack<string> menuStack) : base(menuStack) { }
+    public NotesSection(Stack<string> menuStack) : base(menuStack) { }
 
     public override void DisplaySection()
     {

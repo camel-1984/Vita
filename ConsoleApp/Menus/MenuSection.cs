@@ -1,4 +1,4 @@
-namespace ConsoleApp.MenuSections;
+namespace ConsoleApp.Menus;
 
 public abstract class MenuSection
 {
@@ -18,9 +18,9 @@ public abstract class MenuSection
         }
         else
         {
+            Console.WriteLine();
             Console.WriteLine("Error: Invalid option selected");
             Console.WriteLine("Please enter a valid number from the menu");
-            Console.WriteLine(new string('-', 30));
         }
     }
 

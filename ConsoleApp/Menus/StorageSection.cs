@@ -1,4 +1,4 @@
-namespace ConsoleApp.MenuSections;
+namespace ConsoleApp.Menus;
 
 public class StorageSection : MenuSection
 {

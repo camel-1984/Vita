@@ -1,7 +1,4 @@
-using ConsoleApp.MenuSections;
-using ConsoleApp.Options;
-
-namespace ConsoleApp;
+namespace ConsoleApp.Menus;
 
 public class Menu
 {
@@ -19,8 +16,8 @@ public class Menu
         Console.WriteLine(new string('-', 40));
         MenuStack.Push("Main menu");
 
-        EventOption eventOption = new("Event.json");
-        StorageOption storageOption = new("Storage.json");
+        Options.NotesOptions notesOptions = new("Event.json");
+        Options.StorageOptions storageOptions = new("Storage.json");
 
         while (true)
         {
@@ -46,14 +43,14 @@ public class Menu
                     MainSection mainSection = new(MenuStack);
                     mainSection.DisplaySection();
                     var optionMain = Console.ReadLine() ?? "";
-                    mainSection.ParseOption<MaiEnum>(optionMain);
+                    mainSection.ParseOption<MainEnum>(optionMain);
                     break;
 
                 case "Event":
-                    EventSection eventSection = new(MenuStack);
+                    NotesSection eventSection = new(MenuStack);
                     eventSection.DisplaySection();
                     var optionEvent = Console.ReadLine() ?? "";
-                    eventSection.ParseOption<EventEnum>(optionEvent);
+                    eventSection.ParseOption<NotesEnum>(optionEvent);
                     break;
 
                 case "TakeNode":
@@ -62,12 +59,12 @@ public class Menu
                     var noteTitle = Console.ReadLine() ?? "";
                     Console.Write("Enter note content: ");
                     var noteContent = Console.ReadLine() ?? "";
-                    eventOption.AddNote(noteTitle, noteContent);
+                    notesOptions.AddNote(noteTitle, noteContent);
                     MenuStack.Pop();
                     break;
 
                 case "ShowNodeList":
-                    if (!eventOption.DisplayNodeList())
+                    if (!notesOptions.DisplayNodeList())
                     {
                         MenuStack.Pop();
                         break;
@@ -76,9 +73,9 @@ public class Menu
                     var noteToShow = Console.ReadLine() ?? "";
 
                     if (int.TryParse(noteToShow, out int noteToShowInt) &&
-                        eventOption.InRange(noteToShowInt - 1))
+                        notesOptions.InRange(noteToShowInt - 1))
                     {
-                        eventOption.DisplayNode(noteToShowInt - 1);
+                        notesOptions.DisplayNode(noteToShowInt - 1);
                     }
                     else
                     {
@@ -88,7 +85,7 @@ public class Menu
                     break;
 
                 case "DeleteEventNode":
-                    if (!eventOption.DisplayNodeList())
+                    if (!notesOptions.DisplayNodeList())
                     {
                         MenuStack.Pop();
                         break;
@@ -97,9 +94,9 @@ public class Menu
                     var noteToDelete = Console.ReadLine() ?? "";
 
                     if (int.TryParse(noteToDelete, out int notToDeleteInt) &&
-                        eventOption.InRange(notToDeleteInt - 1))
+                        notesOptions.InRange(notToDeleteInt - 1))
                     {
-                        eventOption.DeleteNode(notToDeleteInt - 1);
+                        notesOptions.DeleteNode(notToDeleteInt - 1);
                     }
                     else
                     {
@@ -116,12 +113,12 @@ public class Menu
                     break;
 
                 case "Store":
-                    storageOption.AddStorageNode();
+                    storageOptions.AddStorageNode();
                     MenuStack.Pop();
                     break;
 
                 case "ShowStorageList":
-                    if (!storageOption.DisplayNodeList())
+                    if (!storageOptions.DisplayNodeList())
                     {
                         MenuStack.Pop();
                         break;
@@ -130,9 +127,9 @@ public class Menu
                     var nodeToShow = Console.ReadLine() ?? "";
 
                     if (int.TryParse(nodeToShow, out int nodeToShowInt) &&
-                        storageOption.InRange(nodeToShowInt - 1))
+                        storageOptions.InRange(nodeToShowInt - 1))
                     {
-                        storageOption.DisplayNode(nodeToShowInt - 1);
+                        storageOptions.DisplayNode(nodeToShowInt - 1);
                     }
                     else
                     {
@@ -142,7 +139,7 @@ public class Menu
                     break;
 
                 case "DeleteStorageNode":
-                    if (!storageOption.DisplayNodeList())
+                    if (!storageOptions.DisplayNodeList())
                     {
                         MenuStack.Pop();
                         break;
@@ -151,9 +148,9 @@ public class Menu
                     var nodeToDelete = Console.ReadLine() ?? "";
 
                     if (int.TryParse(nodeToDelete, out int nodeToDeleteInt) &&
-                        storageOption.InRange(nodeToDeleteInt - 1))
+                        storageOptions.InRange(nodeToDeleteInt - 1))
                     {
-                        storageOption.DeleteNode(nodeToDeleteInt - 1);
+                        storageOptions.DeleteNode(nodeToDeleteInt - 1);
                     }
                     else
                     {
