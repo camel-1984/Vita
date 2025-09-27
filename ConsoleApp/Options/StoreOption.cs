@@ -3,23 +3,109 @@ namespace ConsoleApp.Options;
 public class StorageNode
 {
     [JsonPropertyName("date")]
-    public DateTime CreationTime { get; init; }
+    public DateTime CreationTime { get; }
 
-    [JsonPropertyName("age")]
-    private int age_;
-
-    public int Age
+    public StorageNode()
     {
-        get => age_;
-        init
+        CreationTime = DateTime.Now;
+    }
+
+    [JsonPropertyName("calories")]
+    private int calories_;
+
+    public int Calories
+    {
+        get => calories_;
+        set
         {
-            if (value >= 18 && value <= 100)
+            if (value >= 0)
             {
-                age_ = value;
+                calories_ = value;
             }
             else
             {
-                throw new ArgumentException("Invalid age selected");
+                Console.WriteLine();
+                throw new ArgumentException("Invalid calories value");
+            }
+        }
+    }
+
+    [JsonPropertyName("protein")]
+    private int protein_;
+
+    public int Protein
+    {
+        get => protein_;
+        set
+        {
+            if (value >= 0)
+            {
+                protein_ = value;
+            }
+            else
+            {
+                Console.WriteLine();
+                throw new ArgumentException("Invalid protein value");
+            }
+        }
+    }
+
+    [JsonPropertyName("fats")]
+    private int fats_;
+
+    public int Fats
+    {
+        get => fats_;
+        set
+        {
+            if (value >= 0)
+            {
+                fats_ = value;
+            }
+            else
+            {
+                Console.WriteLine();
+                throw new ArgumentException("Invalid fats value");
+            }
+        }
+    }
+
+    [JsonPropertyName("carbohydrates")]
+    private int carbohydrates_;
+
+    public int Carbohydrates
+    {
+        get => carbohydrates_;
+        set
+        {
+            if (value >= 0)
+            {
+                carbohydrates_ = value;
+            }
+            else
+            {
+                Console.WriteLine();
+                throw new ArgumentException("Invalid carbohydrates value");
+            }
+        }
+    }
+
+    [JsonPropertyName("water")]
+    private int water_;
+
+    public int Water
+    {
+        get => water_;
+        set
+        {
+            if (value >= 0)
+            {
+                water_ = value;
+            }
+            else
+            {
+                Console.WriteLine();
+                throw new ArgumentException("Invalid water value");
             }
         }
     }
@@ -27,30 +113,61 @@ public class StorageNode
     public void Display()
     {
         Console.WriteLine(new string('-', 30));
-        Console.WriteLine($"Age: {Age} years");
+        Console.WriteLine($"Calories: {Calories}/3600kcal.");
+        Console.WriteLine($"Protein: {Protein}/160g.");
+        Console.WriteLine($"Fats: {Fats}/80g.");
+        Console.WriteLine($"Carbohydrates: {Carbohydrates}/560g.");
+        Console.WriteLine($"Water: {Water}/2500ml.");
         Console.WriteLine(new string('-', 30));
     }
 
     public static StorageNode CreateStorageNode()
     {
         Console.WriteLine("=== CREATE STORAGE RECORD ===");
-        Console.Write("Enter age: ");
-        var input = Console.ReadLine();
 
-        if (int.TryParse(input, out int age))
-        {
-            var node = new StorageNode
-            {
-                CreationTime = DateTime.Now,
-                Age = age
-            };
-            Console.WriteLine();
-            Console.WriteLine("Record successfully created");
-            return node;
+        var node = new StorageNode();
+
+        Console.Write("Enter calories: ");
+        var inputCalories = Console.ReadLine();
+
+        if (int.TryParse(inputCalories, out int outCalories)) {
+            node.Calories = outCalories;
         }
-        throw new ArgumentException("Invalid input. Please try again with valid input.");
-    }
+
+        Console.Write("Enter protein: ");
+        var inputProtein = Console.ReadLine();
+
+        if (int.TryParse(inputProtein, out int outProtein)) {
+            node.Protein = outProtein;
+        }
+
+        Console.Write("Enter fats: ");
+        var inputFats = Console.ReadLine();
+
+        if (int.TryParse(inputFats, out int outFats)) {
+            node.Fats = outFats;
+        }
+
+        Console.Write("Enter carbohydrates: ");
+        var inputCarbohydrates = Console.ReadLine();
+
+        if (int.TryParse(inputCarbohydrates, out int outCarbohydrates)) {
+            node.Carbohydrates = outCarbohydrates;
+        }
+
+        Console.Write("Enter water: ");
+        var inputWater = Console.ReadLine();
+
+        if (int.TryParse(inputWater, out int outWater)) {
+            node.Water = outWater;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Record successfully created");
+        return node;
+    }        
 }
+
 
 public class StorageOption : Option<StorageNode>
 {
@@ -67,7 +184,7 @@ public class StorageOption : Option<StorageNode>
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
-            Console.WriteLine("Please try again with valid age");
+            Console.WriteLine("Please try again with valid input");
         }
     }
 
