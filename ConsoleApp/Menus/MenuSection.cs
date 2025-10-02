@@ -20,7 +20,6 @@ public abstract class MenuSection
         {
             Console.WriteLine();
             Console.WriteLine("Error: Invalid option selected");
-            Console.WriteLine("Please enter a valid number from the menu");
         }
     }
 

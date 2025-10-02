@@ -11,12 +11,13 @@ public class Menu
 
     public void Run()
     {
+        Console.WriteLine();
         Console.WriteLine("=== VITA ===");
         Console.WriteLine("Welcome to Vita Notes Manager!");
         Console.WriteLine(new string('-', 40));
         MenuStack.Push("Main menu");
 
-        Options.NotesOptions notesOptions = new("Event.json");
+        Options.NotesOptions notesOptions = new("Event.json"); 
         Options.StorageOptions storageOptions = new("Storage.json");
 
         while (true)
@@ -79,6 +80,7 @@ public class Menu
                     }
                     else
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Error: Invalid note selection");
                     }
                     MenuStack.Pop();
@@ -100,6 +102,7 @@ public class Menu
                     }
                     else
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Error: Invalid note selection");
                     }
                     MenuStack.Pop();
@@ -133,6 +136,7 @@ public class Menu
                     }
                     else
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Error: Invalid record selection");
                     }
                     MenuStack.Pop();
@@ -154,6 +158,7 @@ public class Menu
                     }
                     else
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Error: Invalid record selection");
                     }
                     MenuStack.Pop();
