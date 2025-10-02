@@ -6,6 +6,7 @@ public class PasswordManager
 
     public bool PasswordCheck()
     {
+        
         if (File.Exists(HashFilePath))
         {
             string givenPassword = GivePassword();
@@ -16,7 +17,8 @@ public class PasswordManager
             }
             else
             {
-                Console.WriteLine("wrong password");
+                Console.WriteLine();
+                Console.WriteLine("Wrong password.");
                 return false;
             }
         }
@@ -29,9 +31,12 @@ public class PasswordManager
 
     private void SetPassword()
     {
-        Console.Write("set password: ");
+        Console.WriteLine();
+        Console.Write("Enter new password: ");
         string settedPassword = Console.ReadLine() ?? "";
+        
         File.AppendAllText(HashFilePath, HashPassword(settedPassword));
+        
     }
 
     private static string HashPassword(string password)
@@ -43,9 +48,9 @@ public class PasswordManager
 
     private static string GivePassword()
     {
-        Console.Write("give password: ");
+        Console.WriteLine();
+        Console.Write("Enter password: ");
         string givenPassword = Console.ReadLine() ?? " ";
         return givenPassword;
     }
-
 }
