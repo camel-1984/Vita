@@ -2,31 +2,41 @@ namespace ConsoleApp.Uttils;
 
 public class PasswordManager
 {
-    private readonly string HashFilePath = Path.Combine(Directory.GetCurrentDirectory(), "hash.txt");
+    [JsonIgnore]
+    private readonly string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "Password.json");
 
-    public bool PasswordCheck()
+    [JsonIgnore]
+    private readonly JsonSerializerOptions option = new() { WriteIndented = true };
+
+    [JsonPropertyName("Hash")]
+    [JsonInclude]
+    private string? Hash { get; set; }
+
+    [JsonPropertyName("LastEnter")]
+    [JsonInclude]
+    private DateTime? LastEnter { get; set; }
+
+    private void LoadFile()
     {
-        
-        if (File.Exists(HashFilePath))
-        {
-            string givenPassword = GivePassword();
+        var json = File.ReadAllText(FilePath);
+        var loadedObj = JsonSerializer.Deserialize<PasswordManager>(json) ?? new();
+         
+        Hash = loadedObj.Hash;
+        LastEnter = loadedObj.LastEnter;
+    }
 
-            if (HashPassword(givenPassword) == File.ReadAllText(HashFilePath))
-            {
-                return true;
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine("Wrong password.");
-                return false;
-            }
-        }
-        else
-        {
-            SetPassword();
-            return true;
-        }
+    private void SaveFile()
+    {
+        var json = JsonSerializer.Serialize(this, option);
+        File.WriteAllText(FilePath, json);
+    }
+
+    private string GivePassword()
+    {
+        Console.WriteLine();
+        Console.Write("Enter password: ");
+        string givenPassword = PasswordProcessing();
+        return givenPassword;
     }
 
     private void SetPassword()
@@ -34,9 +44,31 @@ public class PasswordManager
         Console.WriteLine();
         Console.Write("Enter new password: ");
         string settedPassword = Console.ReadLine() ?? "";
-        
-        File.AppendAllText(HashFilePath, HashPassword(settedPassword));
-        
+
+        Hash = HashPassword(settedPassword);
+        LastEnter = DateTime.Now;
+    }
+
+    private string PasswordProcessing()
+    {
+        string password = "";
+        ConsoleKeyInfo key = Console.ReadKey(true);
+
+        while (key.Key != ConsoleKey.Enter)
+        {
+            if (key.Key != ConsoleKey.Backspace)
+            {
+                password = password + key.KeyChar;
+                Console.Write('*');
+            }
+            else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                password = password.Remove(password.Length - 1);
+                Console.Write("\b \b");
+            }
+            key = Console.ReadKey(true);
+        }
+        return password;
     }
 
     private static string HashPassword(string password)
@@ -46,11 +78,34 @@ public class PasswordManager
         return Convert.ToBase64String(hash);
     }
 
-    private static string GivePassword()
+    public void PasswordCheck()
     {
-        Console.WriteLine();
-        Console.Write("Enter password: ");
-        string givenPassword = Console.ReadLine() ?? " ";
-        return givenPassword;
+        if (File.Exists(FilePath))
+        {
+            LoadFile();
+
+            if (DateTime.Now - LastEnter > TimeSpan.FromHours(1))
+            {
+                while (true)
+                {
+                    string givenPassword = GivePassword();
+                    if (HashPassword(givenPassword) == Hash)
+                    {
+                        LastEnter = DateTime.Now;
+                        SaveFile();
+                        break;
+
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Wrong password.");
+                }
+            }
+
+        }
+        else
+        {
+            SetPassword();
+            SaveFile();
+        }
     }
 }

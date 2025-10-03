@@ -12,9 +12,8 @@ public class Enter()
 {
     public static void Main()
     {
-
         Uttils.PasswordManager password = new();
-        while (!password.PasswordCheck()){}
+        password.PasswordCheck();
 
         Menus.Menu menu = new Menus.Menu();
         menu.Run();

@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 namespace ConsoleApp.Options;
 
 public abstract class Option<T>
@@ -5,6 +7,8 @@ public abstract class Option<T>
     protected string FilePath{ get; init; }
 
     protected List<T> NodeList = new();
+
+    protected readonly static JsonSerializerOptions option = new(){WriteIndented = true};
 
     public Option(string path)
     {
@@ -46,12 +50,11 @@ public abstract class Option<T>
         }
     }
 
+    
+
     protected void SaveNodes()
     {
-        var json = JsonSerializer.Serialize(NodeList, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
+        var json = JsonSerializer.Serialize(NodeList, option);
         File.WriteAllText(FilePath, json);
     }
 }
